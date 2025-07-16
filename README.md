@@ -15,3 +15,8 @@
 [google](https://www.google.com/)<br>
 也可以連結至內部檔案<br>
 [source](https://github.com/unicorn9797/testProject/blob/main/source.txt)
+
+[index](https://github.com/unicorn9797/testProject/blob/main/doc/index.html)
+
+以及圖片(記得要上傳)
+[java](/doc/pic/Java_Logo.png)
