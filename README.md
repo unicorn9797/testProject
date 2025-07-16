@@ -9,3 +9,7 @@
 可以使用\<br\>來做換行(同HTML語法)<br>
 以及使用\<hr\>來做分隔線
 <hr>
+
+### markdown語法
+使用\[連結名稱\]以及(要連結的網址)來製作超連結
+[google](www.google.com.tw)
