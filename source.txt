@@ -1,0 +1,309 @@
+///按鈕相關
+		///
+		///
+		///
+		///
+		Order o = new Order(0,0,0,0,0);
+		
+		JRadioButton normalMem = new JRadioButton("普通會員(主餐搭配附餐有95折)");
+		normalMem.setBounds(134, 134, 199, 23);
+		panel_1.add(normalMem);
+		buttonGroup.add(normalMem);
+		
+		JRadioButton goldenMem = new JRadioButton("黃金會員(主餐搭配附餐有9折)");
+		goldenMem.setBounds(134, 161, 188, 23);
+		panel_1.add(goldenMem);
+		buttonGroup.add(goldenMem);			
+
+		
+		
+		
+		JButton ok = new JButton("送出");
+		ok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				output.setText("訂單完成!!\n" + o.getNowOrder() + "\n~謝謝惠顧~");
+			}
+		});
+		ok.setBounds(149, 326, 87, 23);
+		contentPane.add(ok);
+		
+		JButton clear = new JButton("清除");
+		clear.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				num_Steak.setText("0");				
+				num_Pork.setText("0");
+				num_Fish.setText("0");
+				num_Soup.setText("0");
+				num_Bread.setText("0");
+				o.setSteak(0);
+				o.setPork_steak(0);
+				o.setFish_steak(0);
+				o.setSoup(0);
+				o.setBread(0);
+				output.setText("等待訂單中....");
+			}
+		});
+		clear.setBounds(246, 326, 87, 23);
+		contentPane.add(clear);
+		
+		JButton windowClose = new JButton("關閉");
+		windowClose.setBounds(462, 326, 87, 23);
+		windowClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		contentPane.add(windowClose);
+		
+		JButton print_b = new JButton("列印");
+		print_b.setBounds(354, 326, 87, 23);
+		print_b.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				PrinterJob job = PrinterJob.getPrinterJob();
+		        job.setPrintable(new Printable() {
+		            public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
+		                if (page > 0) return NO_SUCH_PAGE;
+
+		                // 假設你要列印 JTextArea 的內容
+		                g.drawString(output.getText(), 100, 100);
+		                return PAGE_EXISTS;
+		            }
+		        });
+
+		        if (job.printDialog()) {
+		            try {
+		                job.print();
+		            } catch (PrinterException ex) {
+		                ex.printStackTrace();
+		            }
+		        }
+				
+			}
+		});
+		contentPane.add(print_b);	
+			
+		
+		JButton addBeef = new JButton("+");
+		addBeef.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		addBeef.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Steak.getText());
+				count++;
+				num_Steak.setText(String.valueOf(count));
+				o.setSteak(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		addBeef.setBounds(80, 60, 46, 23);
+		panel_1.add(addBeef);
+		
+		JButton subtractBeef = new JButton("-");
+		subtractBeef.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Steak.getText());
+				if(count >0)
+					count--;
+				num_Steak.setText(String.valueOf(count));
+				o.setSteak(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+				
+			}
+		});
+		subtractBeef.setBounds(0, 60, 39, 23);
+		panel_1.add(subtractBeef);
+		
+		JButton subtractPork = new JButton("-");
+		subtractPork.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Pork.getText());
+				if(count >0)
+					count--;
+				num_Pork.setText(String.valueOf(count));
+				o.setPork_steak(0);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		subtractPork.setBounds(0, 105, 39, 23);
+		panel_1.add(subtractPork);
+		
+		num_Pork = new JTextField();
+		num_Pork.setText("0");
+		num_Pork.setHorizontalAlignment(SwingConstants.RIGHT);
+		num_Pork.setFont(new Font("細明體", Font.PLAIN, 16));
+		num_Pork.setColumns(10);
+		num_Pork.setBounds(36, 106, 46, 21);
+		panel_1.add(num_Pork);
+		
+		JButton addPork = new JButton("+");
+		addPork.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Pork.getText());
+				count++;
+				num_Pork.setText(String.valueOf(count));
+				o.setPork_steak(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		addPork.setBounds(80, 105, 46, 23);
+		panel_1.add(addPork);
+		
+		JButton subtractFish = new JButton("-");
+		subtractFish.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Fish.getText());
+				if(count >0)
+					count--;
+				num_Fish.setText(String.valueOf(count));
+				o.setFish_steak(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		subtractFish.setBounds(0, 161, 39, 23);
+		panel_1.add(subtractFish);
+		
+		num_Fish = new JTextField();
+		num_Fish.setText("0");
+		num_Fish.setHorizontalAlignment(SwingConstants.RIGHT);
+		num_Fish.setFont(new Font("細明體", Font.PLAIN, 16));
+		num_Fish.setColumns(10);
+		num_Fish.setBounds(36, 162, 46, 21);
+		panel_1.add(num_Fish);
+		
+		JButton addFish = new JButton("+");
+		addFish.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Fish.getText());
+				count++;
+				num_Fish.setText(String.valueOf(count));
+				o.setFish_steak(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		addFish.setBounds(80, 161, 46, 23);
+		panel_1.add(addFish);
+		
+		JButton subtractSoup = new JButton("-");
+		subtractSoup.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Soup.getText());
+				if(count >0)
+					count--;
+				num_Soup.setText(String.valueOf(count));
+				o.setSoup(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		subtractSoup.setBounds(155, 61, 39, 23);
+		panel_1.add(subtractSoup);
+		
+		num_Soup = new JTextField();
+		num_Soup.setText("0");
+		num_Soup.setHorizontalAlignment(SwingConstants.RIGHT);
+		num_Soup.setFont(new Font("細明體", Font.PLAIN, 16));
+		num_Soup.setColumns(10);
+		num_Soup.setBounds(191, 62, 46, 21);
+		panel_1.add(num_Soup);
+		
+		JButton addSoup = new JButton("+");
+		addSoup.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Soup.getText());
+				count++;
+				num_Soup.setText(String.valueOf(count));
+				o.setSoup(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		addSoup.setBounds(235, 61, 46, 23);
+		panel_1.add(addSoup);
+		
+		JButton subtractBread = new JButton("-");
+		subtractBread.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Bread.getText());
+				if(count >0)
+					count--;
+				num_Bread.setText(String.valueOf(count));
+				o.setBread(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		subtractBread.setBounds(155, 105, 39, 23);
+		panel_1.add(subtractBread);		
+		
+		
+		JButton addBread = new JButton("+");
+		addBread.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = Integer.parseInt(num_Bread.getText());
+				count++;
+				num_Bread.setText(String.valueOf(count));
+				o.setBread(count);
+				o.setNormalMem(normalMem.isSelected());
+		        o.setGoldenMem(goldenMem.isSelected());
+				output.setText("訂單試算\n" + o.getNowOrder());
+			}
+		});
+		addBread.setBounds(235, 105, 46, 23);
+		panel_1.add(addBread);
+////////////method
+
+public String getNowOrder()
+	{
+		this.sum = steak*250 + pork_steak*240 + fish_steak*230 + soup*50 + bread*20;
+		String result = "";
+		if(steak > 0)
+			result = result + "牛排" + steak +"份\n";
+		if(pork_steak > 0)
+			result = result + "豬排" + pork_steak +"份\n";
+		if(fish_steak > 0)
+			result = result + "魚排" + fish_steak +"份\n";
+		if(soup > 0)
+			result = result + "酥皮玉米濃湯" + soup +"份\n";
+		if(bread > 0)
+			result = result + "現烤奶油麵包" + bread +"份\n";
+		if(result == "")
+			result = "購物車沒有餐點喔\n";
+		if(normalMem && (steak >0 || pork_steak >0 || fish_steak >0) && (soup >0 || bread > 0))//有點主餐和附餐才有會員優惠
+			result = result +"\n由於你是普通會員\n且有點主餐與附餐\n一共是" + (int)(sum*0.95) + "元";
+		else if(goldenMem  && (steak >0 || pork_steak >0 || fish_steak >0) && (soup >0 || bread > 0))
+			result = result +"\n由於你是黃金會員，\n且有點主餐與附餐\n一共是" + (int)(sum*0.9) + "元";
+		else
+			result = result +"\n一共是" +sum + "元";
+		return result;			
+		
+	}
