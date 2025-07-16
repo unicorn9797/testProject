@@ -19,4 +19,4 @@
 [index](https://github.com/unicorn9797/testProject/blob/main/doc/index.html)
 
 以及圖片(記得要上傳)
-![image](/doc/pic/Java_Logo.png)
+![image]((https://github.com/unicorn9797/testProject/blob/main/doc/pic/Java_logo.png)
